@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mobile Wallet Complet</title>
+<style>
+body{margin:0;font-family:Arial;background:#f2f2f2;display:flex;justify-content:center;}
+.phone{width:100%;max-width:390px;min-height:100vh;background:white;padding-bottom:20px;}
+.page{display:none;padding:20px;}
+.active{display:block;}
+h2{text-align:center;}
+input{width:100%;padding:12px;margin-top:10px;border-radius:8px;border:1px solid #ccc;}
+button{width:100%;padding:12px;margin-top:10px;border:none;border-radius:8px;font-weight:bold;cursor:pointer;}
+.blue{background:#2b6df6;color:white;}
+.gray{background:#ddd;}
+.link{text-align:center;margin-top:15px;color:#2b6df6;cursor:pointer;}
+.card{background:linear-gradient(135deg,#000,#333);color:white;padding:20px;border-radius:12px;margin-top:20px;}
+.number{font-size:18px;letter-spacing:3px;}
+.cardbottom{display:flex;justify-content:space-between;margin-top:10px;}
+.balance{text-align:center;margin-top:15px;font-weight:bold;}
+.actions{display:flex;gap:6px;margin-top:15px;}
+.actions button{flex:1;}
+.grid{display:none;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:20px;}
+.option{padding:15px;border-radius:10px;text-align:center;font-weight:bold;color:white;cursor:pointer;}
+.mpesa{background:#1fae4b;}
+.airtel{background:#e60012;}
+.orange{background:#ff7900;}
+.sasir{background:#6c4cff;}
+.binance{background:#000;}
+.paypal{background:#003087;}
+.helico{background:#ffaa00;color:black;}
+.list-item{padding:10px;margin-top:8px;border-radius:8px;background:#eee;font-weight:bold;display:flex;justify-content:space-between;}
+.navbar{display:flex;gap:5px;margin-top:15px;}
+.navbar button{flex:1;background:#2b6df6;color:white;}
+</style>
+</head>
+<body>
+<div class="phone">
+
+<!-- LOGIN -->
+<div id="login" class="page active">
+<h2>Connexion</h2>
+<input placeholder="Email">
+<input type="password" placeholder="Mot de passe">
+<button class="blue" onclick="openWallet()">Se connecter</button>
+<div class="link" onclick="showPage('register')">Créer un compte</div>
+</div>
+
+<!-- REGISTER -->
+<div id="register" class="page">
+<h2>Créer compte</h2>
+<input placeholder="Nom complet" id="regName">
+<input placeholder="Email" id="regEmail">
+<input placeholder="Téléphone" id="regPhone">
+<input type="password" placeholder="Mot de passe">
+<button class="blue" onclick="openWallet()">Créer</button>
+<div class="link" onclick="showPage('login')">Retour connexion</div>
+</div>
+
+<!-- WALLET -->
+<div id="wallet" class="page">
+<div class="navbar">
+<button onclick="showPage('profile')">Profil</button>
+<button onclick="showPage('settings')">Paramètres</button>
+<button onclick="showPage('notifications')">Notifications</button>
+</div>
+
+<h2>BUSINESS WORLD</h2>
+<div class="card">
+<div class="number">4035 2511 8049 6374</div>
+<div>Exp: 12/27 | CVV: 390</div>
+<div class="cardbottom"><div id="cardName">JOHN SHART</div><div>VISA</div></div>
+</div>
+
+<div class="balance">
+<h3>Solde : <span id="balance">100.00</span> USD</h3>
+<div style="color:green">Disponible</div>
+</div>
+
+<div class="actions">
+<button class="blue" onclick="showPayments()">Recharger</button>
+<button class="gray" onclick="showPayments()">Dépôt</button>
+<button onclick="showPage('withdraw')">Retrait</button>
+</div>
+
+<div id="payments" class="grid">
+  <div class="option mpesa" onclick="window.open('https://partenaires.wonyasoft.com/payment-link/public-flex?cfg=eyJwYXlQcm8iOiJBQTEyMSIsImV4cCI6MTgwMzM2NzQwMTg5MiwibW9kZSI6ImZsZXgiLCJtb3RpZlByZWZpeCI6IkRFUE9UIiwicHJvamVjdFR5cGUiOiJjb21tZXJjaWFsZSIsImNvbW1lcmNpYWxOYW1lIjoiU2hvcCJ9','_blank')">M-PESA</div>
+  <div class="option airtel" onclick="window.open('https://partenaires.wonyasoft.com/payment-link/public-flex?cfg=eyJwYXlQcm8iOiJBQTEyMSIsImV4cCI6MTgwMzM2NzQwMTg5MiwibW9kZSI6ImZsZXgiLCJtb3RpZlByZWZpeCI6IkRFUE9UIiwicHJvamVjdFR5cGUiOiJjb21tZXJjaWFsZSIsImNvbW1lcmNpYWxOYW1lIjoiU2hvcCJ9','_blank')">Airtel Money</div>
+  <div class="option orange" onclick="window.open('https://partenaires.wonyasoft.com/payment-link/public-flex?cfg=eyJwYXlQcm8iOiJBQTEyMSIsImV4cCI6MTgwMzM2NzQwMTg5MiwibW9kZSI6ImZsZXgiLCJtb3RpZlByZWZpeCI6IkRFUE9UIiwicHJvamVjdFR5cGUiOiJjb21tZXJjaWFsZSIsImNvbW1lcmNpYWxOYW1lIjoiU2hvcCJ9','_blank')">Orange Money</div>
+  <div class="option sasir" onclick="window.open('https://partenaires.wonyasoft.com/payment-link/public-flex?cfg=eyJwYXlQcm8iOiJBQTEyMSIsImV4cCI6MTgwMzM2NzQwMTg5MiwibW9kZSI6ImZsZXgiLCJtb3RpZlByZWZpeCI6IkRFUE9UIiwicHJvamVjdFR5cGUiOiJjb21tZXJjaWFsZSIsImNvbW1lcmNpYWxOYW1lIjoiU2hvcCJ9','_blank')">ALIPAY</div>
+  <div class="option binance" onclick="window.open('https://partenaires.wonyasoft.com/payment-link/public-flex?cfg=eyJwYXlQcm8iOiJBQTEyMSIsImV4cCI6MTgwMzM2NzQwMTg5MiwibW9kZSI6ImZsZXgiLCJtb3RpZlByZWZpeCI6IkRFUE9UIiwicHJvamVjdFR5cGUiOiJjb21tZXJjaWFsZSIsImNvbW1lcmNpYWxOYW1lIjoiU2hvcCJ9','_blank')">Binance</div>
+  <div class="option paypal" onclick="window.open('https://partenaires.wonyasoft.com/payment-link/public-flex?cfg=eyJwYXlQcm8iOiJBQTEyMSIsImV4cCI6MTgwMzM2NzQwMTg5MiwibW9kZSI6ImZsZXgiLCJtb3RpZlByZWZpeCI6IkRFUE9UIiwicHJvamVjdFR5cGUiOiJjb21tZXJjaWFsZSIsImNvbW1lcmNpYWxOYW1lIjoiU2hvcCJ9','_blank')">PayPal</div>
+  <div class="option helico" onclick="window.open('https://partenaires.wonyasoft.com/payment-link/public-flex?cfg=eyJwYXlQcm8iOiJBQTEyMSIsImV4cCI6MTgwMzM2NzQwMTg5MiwibW9kZSI6ImZsZXgiLCJtb3RpZlByZWZpeCI6IkRFUE9UIiwicHJvamVjdFR5cGUiOiJjb21tZXJjaWFsZSIsImNvbW1lcmNpYWxOYW1lIjoiU2hvcCJ9','_blank')">ILICOCASH</div>
+</div>
+</div>
+
+<!-- WITHDRAW -->
+<div id="withdraw" class="page">
+<h2>Retrait</h2>
+<input placeholder="Numéro de téléphone" id="withdrawPhone">
+<input placeholder="Montant à retirer" id="withdrawAmount">
+<input placeholder="Code de sécurité" id="withdrawCode">
+<button class="blue" onclick="confirmWithdraw()">Confirmer</button>
+<div class="link" onclick="showPage('wallet')">Retour au portefeuille</div>
+<h3>Retraits en attente :</h3>
+<div id="withdrawList"></div>
+</div>
+
+<!-- HISTORY -->
+<div id="history" class="page">
+<h2>Historique des retraits</h2>
+<div id="historyList"></div>
+<div class="link" onclick="showPage('wallet')">Retour au portefeuille</div>
+</div>
+
+<!-- PROFILE -->
+<div id="profile" class="page">
+<h2>Profil</h2>
+<p>Nom : <span id="profileName">JOHN SHART</span></p>
+<p>Email : <span id="profileEmail">john@example.com</span></p>
+<p>Téléphone : <span id="profilePhone">+243 123456789</span></p>
+<div class="link" onclick="showPage('wallet')">Retour au portefeuille</div>
+</div>
+
+<!-- SETTINGS -->
+<div id="settings" class="page">
+<h2>Paramètres</h2>
+<p>Langue activée : <span id="lang">Français</span></p>
+<button onclick="changeLanguage()">Changer la langue</button>
+
+<h3>Créer votre Code PIN</h3>
+<input placeholder="Entrez code PIN (4 ou 5 chiffres)" id="newPin" type="password">
+<button class="blue" onclick="createPIN()">Confirmer</button>
+<div id="pinMessage" style="margin-top:10px;color:green;font-weight:bold;"></div>
+
+<div class="link" onclick="showPage('wallet')">Retour au portefeuille</div>
+</div>
+
+<!-- NOTIFICATIONS -->
+<div id="notifications" class="page">
+<h2>Notifications</h2>
+<div class="list-item">Bienvenue dans votre wallet</div>
+<div class="list-item">Votre solde est de <span id="notifBalance">100.00</span> USD</div>
+<div class="link" onclick="showPage('wallet')">Retour au portefeuille</div>
+</div>
+
+<script>
+let balance = 100.00;
+let withdraws = [];
+let userPIN = "";
+
+function showPage(page){
+  document.querySelectorAll(".page").forEach(p=>p.classList.remove("active"));
+  document.getElementById(page).classList.add("active");
+}
+
+function openWallet(){
+  showPage("wallet");
+  updateBalance();
+}
+
+function showPayments(){
+  document.getElementById("payments").style.display="grid";
+}
+
+function confirmWithdraw(){
+  const phone = document.getElementById("withdrawPhone").value;
+  const amount = parseFloat(document.getElementById("withdrawAmount").value);
+  const code = document.getElementById("withdrawCode").value;
+  if(!phone || !amount || !code){
+    alert("Veuillez remplir tous les champs !");
+    return;
+  }
+  if(amount > balance){
+    alert("Solde insuffisant !");
+    return;
+  }
+  balance -= amount;
+  withdraws.push({phone, amount});
+  updateBalance();
+  updateWithdrawList();
+  updateHistory();
+  document.getElementById("withdrawPhone").value="";
+  document.getElementById("withdrawAmount").value="";
+  document.getElementById("withdrawCode").value="";
+}
+
+function updateBalance(){
+  document.getElementById("balance").innerText = balance.toFixed(2);
+  document.getElementById("notifBalance").innerText = balance.toFixed(2);
+}
+
+function updateWithdrawList(){
+  const list = document.getElementById("withdrawList");
+  list.innerHTML="";
+  withdraws.forEach(w=>{
+    const div = document.createElement("div");
+    div.classList.add("list-item");
+    div.innerText = `$${w.amount.toFixed(2)} - Retrait en attente`;
+    list.appendChild(div);
+  });
+}
+
+function updateHistory(){
+  const list = document.getElementById("historyList");
+  list.innerHTML="";
+  withdraws.forEach(w=>{
+    const div = document.createElement("div");
+    div.classList.add("list-item");
+    div.innerText = `${w.phone} : $${w.amount.toFixed(2)} - Retrait en attente`;
+    list.appendChild(div);
+  });
+}
+
+function createPIN(){
+  const pin = document.getElementById("newPin").value;
+  if(!/^\d{4,5}$/.test(pin)){
+    alert("Le PIN doit contenir 4 ou 5 chiffres !");
+    return;
+  }
+  userPIN = pin;
+  document.getElementById("pinMessage").innerText = "Code PIN créé avec succès";
+  document.getElementById("newPin").value="";
+}
+
+function changeLanguage(){
+  const current = document.getElementById("lang").innerText;
+  const newLang = current==="Français" ? "Anglais" : "Français";
+  document.getElementById("lang").innerText = newLang;
+}
+</script>
+</body>
+</html>
